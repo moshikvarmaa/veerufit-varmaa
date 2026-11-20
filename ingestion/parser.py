@@ -109,7 +109,7 @@ def parse_biomarkers_with_llm(raw_text: str) -> dict:
     {raw_text}
     """
 
-    models_to_try = ["gemini-3.8-flash", "gemini-3.8-flash-lite", "gemini-2.5-flash-lite"]
+    models_to_try = ["gemini-3.5-flash-lite", "gemini-3.8-flash"]
     response = None
 
     for model_name in models_to_try:
@@ -119,23 +119,22 @@ def parse_biomarkers_with_llm(raw_text: str) -> dict:
                     model=model_name,
                     contents=prompt,
                     config=types.GenerateContentConfig(
-                        response_mime_type="application/json",
-                        response_schema=LabReportExtraction,
-                        temperature=0.0,
-                    ),
-                )
+                    response_mime_type="application/json",
+                    response_schema=LabReportExtraction,
+                    temperature=0.0,
+                ),
+            )
                 break
             except ServerError as e:
-                if e.code == 503:
-                    wait_time = 2 ** attempt
-                    print(f"   [{model_name}] Server busy (503). Retrying in {wait_time}s...")
-                    time.sleep(wait_time)
-                else:
-                    raise
+                if e.code == 503 and attempt == 0:
+                    print(f"[{model_name}] Temporary overload. Retrying once...")
+                    time.sleep(2)
+                    continue
+                print(f"[{model_name}] Failed with server error: {e}")
+                break
             except ClientError as e:
-                if e.code == 404:
-                    break
-                raise
+                print(f"[{model_name}] API error: {e}")
+                break
         if response:
             break
 

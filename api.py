@@ -66,7 +66,7 @@ async def generate_plan(
         output = run_from_pdf(
             file_path=temp_path,
             user_profile=user_profile,
-            model_name="gemini-2.5-flash",
+            model_name="gemini-3.8-flash",
         )
 
         report_id = output["report_id"]

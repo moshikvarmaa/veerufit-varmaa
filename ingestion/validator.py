@@ -1,7 +1,7 @@
 from typing import Literal
 
 TrainingMode = Literal[
-    "bodybuilding_prep",
+    "hypertrophy_prep",
     "combat_sports",
     "hybrid_athlete",
     "calisthenics",
@@ -17,7 +17,7 @@ class ReportValidator:
 
     # Required/recommended biomarkers per training mode with weights
     MODE_REQUIREMENTS: dict[str, dict[str, int]] = {
-        "bodybuilding_prep": {
+        "hypertrophy_prep": {
             "hemoglobin": 15,
             "wbc_count": 10,
             "tsh": 15,
@@ -84,13 +84,28 @@ class ReportValidator:
         "calcium": ["calcium", "serum_calcium"],
         "cortisol": ["cortisol", "serum_cortisol"],
     }
-
+    def _normalize_key(self, key: str) -> str:
+        return (
+        key.lower()
+        .strip()
+        .replace("-", "_")
+        .replace(" ", "_")
+        )
     def _is_marker_present(self, required_key: str, extracted_keys: set[str]) -> bool:
         aliases = self.KEY_ALIASES.get(required_key, [required_key])
-        for ext_key in extracted_keys:
-            if any(alias in ext_key for alias in aliases):
-                return True
-        return False
+
+        normalized_aliases = {
+        self._normalize_key(alias)
+        for alias in aliases
+    }
+
+        normalized_extracted = {
+        self._normalize_key(key)
+        for key in extracted_keys
+    }
+
+        return bool(normalized_aliases & normalized_extracted)
+
 
     def validate(
         self,
