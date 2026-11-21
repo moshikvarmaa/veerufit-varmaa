@@ -116,18 +116,12 @@ export default function App() {
       {/* Top Navbar */}
       <header className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-20">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-gradient-to-br from-blue-600 to-teal-500 shadow-lg shadow-blue-500/20">
-              <Activity className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-xl font-extrabold tracking-tight text-white">
-                Veeru<span className="text-teal-400">Fit</span>
-              </h1>
-              <p className="text-xs text-slate-400">
-                Biomarker-Driven Fitness Intelligence
-              </p>
-            </div>
+          <div className="flex items-center">
+            <img
+            src="/VeeruFit-logo.png"
+            alt="VeeruFit - Form. Focus. Fight."
+            className="h-12 w-auto object-contain"
+            />
           </div>
           <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
             <ShieldCheck className="w-4 h-4 text-teal-400" />
@@ -169,14 +163,14 @@ export default function App() {
                   name="full_name"
                   value={formData.full_name}
                   onChange={handleChange}
-                  placeholder="e.g., Moshikvarmaa C"
+                  placeholder="e.g., athelete name"
                   className="w-full rounded-xl bg-slate-950 border border-slate-800 px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-teal-500"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-400 mb-1.5">
-                  Email ID (For PDF Delivery)
+                  Email ID
                 </label>
                 <div className="relative">
                   <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
@@ -298,7 +292,7 @@ export default function App() {
           {/* Step 2: File Upload & Submit */}
           <div className="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
             <h3 className="text-sm font-bold uppercase tracking-wider text-teal-400 mb-4">
-              Step 2 · Upload Blood Lab Report
+                Upload Blood Lab Report
             </h3>
 
             <label className="flex flex-col items-center justify-center w-full min-h-48 border-2 border-dashed border-slate-700 rounded-2xl bg-slate-950/70 hover:border-teal-500 transition cursor-pointer p-6 text-center">

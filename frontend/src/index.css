@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.brand-logo img {
+  height: 48px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Responsive logo sizing */
+@media (max-width: 640px) {
+  .brand-logo img {
+    height: 40px;
+    max-width: 170px;
+  }
+}
